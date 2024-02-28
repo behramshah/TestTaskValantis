@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import md5 from 'crypto-js/md5';
-import { Resultsfilter, PageList } from './Utils';
+import { endpoint, authString, Resultsfilter, PageList, FilterGoods } from './Utils';
 
-function List () {  
-
-  const endpoint = 'http://api.valantis.store:40000/';
-  const password = 'Valantis';
-  const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
-  const authString = `${password}_${timestamp}`;  
+function List () {    
   const hashAuth = md5(authString).toString();
 
   const [ids, setIds] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState();
+  const [goods, SetGoods] = useState([]);
 
   useEffect(()=>{
     const requestData = {
@@ -30,6 +26,7 @@ function List () {
     .then((response) => {
       const filteredResults = Resultsfilter(response.data.result);
       setIds(filteredResults);
+      setCurrentPage(1)
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -38,10 +35,10 @@ function List () {
   },[])
 
   useEffect (()=>{
-    const parameter = PageList(ids, currentPage);
+    const parameters = PageList(ids, currentPage);
     const requestData = {
       "action": "get_items",
-      "params": {"ids": parameter}
+      "params": {"ids": parameters}
     };
     
     const config = {
@@ -53,7 +50,8 @@ function List () {
 
     axios.post(endpoint, requestData, config)
     .then((response) => {
-      console.log(response.data)
+      const filteredGoods = FilterGoods(response.data.result);
+      SetGoods(filteredGoods)
     })
     .catch((error) => {
       console.error('Error:', error);
