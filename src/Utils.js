@@ -11,3 +11,10 @@ export const Resultsfilter = (results) => {
     return filteredArray;
 
 }
+
+export const PageList = (ids, currentpage) => {
+    const start = currentpage*50 - 50
+    const end = start+49;
+    const pageList = ids.slice(start, end)
+    return pageList;
+}
