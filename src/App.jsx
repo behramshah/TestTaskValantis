@@ -1,11 +1,10 @@
-import List from "./List"
+import List from "./components/List"
 
 
 function App() {
 
   return (
     <>
-      <h1>Vite + React</h1>
       <List/>
     </>
   )
