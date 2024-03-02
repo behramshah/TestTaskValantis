@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useCallback } from 'react';
 import axios from 'axios';
 import md5 from 'crypto-js/md5';
 import { endpoint, authString, Resultsfilter } from './Utils';
@@ -7,10 +7,9 @@ import Table from './Table';
 function List() {
   const authorizationToken = md5(authString).toString();
   const [itemIds, setItemIds] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [showItems, setShowItems] = useState(false);
 
-  const fetchData = async () => {
+  const fetchItemIds = useCallback(async () => {
     try {
       const requestData = { action: 'get_ids' };
       const config = {
@@ -26,36 +25,18 @@ function List() {
     } catch (error) {
       console.error('Error:', error);
     }
-  };
+  },[authorizationToken]);
 
-  useEffect(() => {
-    fetchData();
-  }, [showItems]);
-
-  const goBack = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const goForward = () => {
-    if (itemIds.length - currentPage * 50 > 0) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handleShow = () => {
-    setShowItems(!showItems)
+  const handleShow = async () => {
+    await fetchItemIds();
+    setShowItems(!showItems);
   }
 
   return (
     <>
-      {showItems ? <Table ids={itemIds} currentPage={currentPage} hashAuth={authorizationToken}/> : null}
+      {showItems ? <Table ids={itemIds} hashAuth={authorizationToken}/> : null}
       <div>
-        <button onClick={handleShow}>Show Items</button>
-        <button onClick={goBack}>Previous</button>
-        <p>{currentPage}</p>
-        <button onClick={goForward}>Next</button>
+        <button onClick={handleShow}>Показать всё</button>        
       </div>
     </>
   );
