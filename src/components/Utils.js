@@ -1,4 +1,4 @@
-export const endpoint = 'http://api.valantis.store:40000/';
+export const endpoint = 'https://api.valantis.store:41000/';
 export const password = 'Valantis';
 export const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
 export const authString = `${password}_${timestamp}`;  
