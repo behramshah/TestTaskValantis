@@ -1,5 +1,4 @@
-import List from "./components/List"
-
+import List from "./components/list/List";
 
 function App() {
 

@@ -1,7 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { endpoint, PageList, FilterGoods } from './Utils';
+import { endpoint, PageList, FilterGoods } from '../Utils';
+import Loader from '../loader/Loader';
+import ListItem from '../listitem/ListItem';
+import './Table-style.css';
 
 function Table(props) {
   const { ids, hashAuth } = props;
@@ -49,14 +52,13 @@ function Table(props) {
 
   return (
     <>
-      <h1>Table {currentPage}</h1>
       <ol>
-        {filteredItems.length ? filteredItems.map((item) => (<li key={item.id}>{`${item.price}, ${item.product}, ${item.id}`}</li>)) : <h2>loading...</h2>}
+        {filteredItems.length ? filteredItems.map((item) => (<li key={item.id}><ListItem item = {item} /></li>)) : <Loader/>}
       </ol>
-      <div>
-        <button onClick={goBack}>Previous</button>
-          <p>{currentPage}</p>
-        <button onClick={goForward}>Next</button>
+      <div className='button_container'>
+        <button className='options-button' onClick={goBack}>Предыдущая страница</button>
+          <span className='page-number'>{currentPage}</span>
+        <button className='options-button' onClick={goForward}>Следущая страница</button>
       </div>
     </>
   );

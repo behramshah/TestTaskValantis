@@ -1,0 +1,37 @@
+.filter-container {
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    gap: 1rem;
+  }
+
+  .filter-container label {
+    color: #0074d9;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .filter-container input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .filter-container button {
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #0074d9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #555;
+  }
+  

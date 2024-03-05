@@ -1,0 +1,26 @@
+p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+#button_container {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.options-button {
+    color: #fff;
+    display: inline-block;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: #0074d9;
+  }
+
+  .options-button:hover {
+    background-color: #0056b3;
+  }

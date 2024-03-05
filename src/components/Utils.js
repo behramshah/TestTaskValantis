@@ -36,3 +36,17 @@ export const FilterGoods = (goods) => {
 
   return filteredGoods;
 }
+
+export const ParamsForFilter = (price, brand, productName) => {
+  const parameters = {};
+  if(price){
+    parameters.price = price;
+  }
+  if(brand.length){
+    parameters.brand = brand;
+  }
+  if(productName.length){
+    parameters.product = productName;
+  }
+  return parameters;
+}
