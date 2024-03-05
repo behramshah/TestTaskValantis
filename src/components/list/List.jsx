@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import Table from '../table/Table';
 import Filter from '../filter/Filter';
 
-import axios from 'axios';
+import axiosInstance from '../axios';
 import md5 from 'crypto-js/md5';
 import { endpoint, authString, Resultsfilter } from '../Utils';
 import './list-style.css';
@@ -23,13 +23,13 @@ function List() {
         },
       };
 
-      const response = await axios.post(endpoint, requestData, config);
+      const response = await axiosInstance.post(endpoint, requestData, config);
       const filteredResults = Resultsfilter(response.data.result);
       setItemIds(filteredResults);
     } catch (error) {
       console.error('Error:', error);
     }
-  },[authorizationToken]);
+  }, [authorizationToken]);
 
   const handleShow = async () => {
     setAdvanceSearch(false);

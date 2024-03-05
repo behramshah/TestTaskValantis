@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import axiosInstance from '../axios';
 import { endpoint, PageList, FilterGoods } from '../Utils';
 import Loader from '../loader/Loader';
 import ListItem from '../listitem/ListItem';
@@ -25,7 +25,7 @@ function Table(props) {
         },
       };
 
-      const response = await axios.post(endpoint, requestData, config);
+      const response = await axiosInstance.post(endpoint, requestData, config);
       const filteredGoods = FilterGoods(response.data.result);
       setFilteredItems(filteredGoods);
     } catch (error) {
